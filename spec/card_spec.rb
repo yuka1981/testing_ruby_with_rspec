@@ -8,17 +8,16 @@ class Card
 end
 
 RSpec.describe Card do
-  # before(:example) do
-  # end
-  before do
-    @card = Card.new("Ace", "Spades")
+  # 使用 helper method 所建立的 instance 在 example 中是各自獨立的
+  def card
+    Card.new("Ace", "Spades")
   end
 
   it "has a rank" do
-    expect(@card.rank).to eq("Ace")
+    expect(card.rank).to eq("Ace")
   end
 
   it "has a suit" do
-    expect(@card.suit).to eq("Spades")
+    expect(card.suit).to eq("Spades")
   end
 end
