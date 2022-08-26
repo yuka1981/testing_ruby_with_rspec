@@ -33,10 +33,31 @@ class Movie
       actor.act
       actor.fall_off_ladder
       actor.light_on_fire
+      # actor.light_on_fire
+      actor.act
     end 
   end
 end
 
-actor = Actor.new("Brad Pitt")
-movie = Movie.new(actor)
-movie.start_shooting
+# actor = Actor.new("Brad Pitt")
+# movie = Movie.new(actor)
+# movie.start_shooting
+
+RSpec.describe Movie do
+  let(:stuntman) { double("Mr. Danger", ready?: true, act: "Hey Hey", fall_off_ladder: "Jump", light_on_fire: true) }
+  # let(:stuntman) { double("Mr. Danger") }
+  subject { described_class.new(stuntman) }
+
+  describe "#start_shooting" do
+    it "expects an actor to do 3 actions" do
+      expect(stuntman).to receive(:ready?).once
+      # expect(stuntman).to receive(:act)
+      # expect(stuntman).to receive(:fall_off_ladder)
+      # expect(stuntman).to receive(:light_on_fire).exactly(1).times
+      # expect(stuntman).to receive(:light_on_fire).at_most(1).times
+      expect(stuntman).to receive(:act).at_most(2).times
+
+      subject.start_shooting
+    end
+  end
+end
